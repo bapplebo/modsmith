@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "WH2": {
+      "commandName": "Project",
+      "commandLineArgs": "--appid 594570"
+    },
+    "3K": {
+      "commandName": "Project",
+      "commandLineArgs": "--appid 779340"
+    },
+    "without arg": {
+      "commandName": "Project"
+    }
+  }
+}

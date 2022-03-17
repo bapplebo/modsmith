@@ -1,0 +1,53 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="210"
+        x:Class="Modsmith.Views.SaveProfileWindow"
+        Title="Save profile"
+        TransparencyLevelHint="AcrylicBlur"
+        WindowStartupLocation="CenterOwner"
+        ExtendClientAreaToDecorationsHint="True"
+        MaxWidth="400"
+        MaxHeight="220">
+
+  <Window.Styles>
+    <Style Selector="Window Panel#PART_MinimiseButton">
+      <Setter Property="IsVisible" Value="False"></Setter>
+    </Style>
+    <Style Selector="Window Panel#PART_RestoreButton">
+      <Setter Property="IsVisible" Value="False"></Setter>
+    </Style>
+  </Window.Styles>
+
+  <Panel>
+    <ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial
+            BackgroundSource="Digger"
+            TintColor="Black"
+            TintOpacity="1"
+            MaterialOpacity="0.65" />
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>
+
+    <Panel Margin="10">
+      <TextBlock Text="Save profile" />
+    </Panel>
+    <DockPanel Margin="40, 50, 20, 20">
+      <TextBlock FontSize="12" Width="340" TextWrapping="Wrap" DockPanel.Dock="Top">
+        Enter a name for your profile. Using a name that's already taken will override the existing profile.
+      </TextBlock>
+      <Grid DockPanel.Dock="Bottom">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button IsEnabled="{Binding ButtonsEnabled}" Command="{Binding SaveProfileCommand}" Grid.Column="0" Margin="0,0,5,0" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Save</Button>
+        <Button Click="CancelButtonClicked" Grid.Column="1" Margin="5,0,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch">Cancel</Button>
+      </Grid>
+      <TextBox Text="{Binding NewProfileName}" Margin="0, 15" DockPanel.Dock="Bottom" Watermark="Enter a profile name..." />
+      <Panel></Panel>
+    </DockPanel>
+  </Panel>
+</Window>

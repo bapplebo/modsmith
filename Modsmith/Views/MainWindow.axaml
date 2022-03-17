@@ -1,0 +1,150 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Modsmith.ViewModels"
+        xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Modsmith.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Modsmith"
+        Background="#171821"
+        TransparencyLevelHint="AcrylicBlur"
+        WindowStartupLocation="CenterScreen"
+        Closing="WindowClosing"
+        ExtendClientAreaToDecorationsHint="True">
+
+  <Window.Styles>
+    <Style Selector="DataGridCell">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="FocusAdorner" Value="{x:Null}" />
+    </Style>
+    <Style Selector="TextBlock">
+      <Setter Property="Foreground" Value="#ffffff" />
+    </Style>
+    <Style Selector="Button.sidebarButton">
+      <Setter Property="Width" Value="150" />
+      <Setter Property="Height" Value="35" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="CornerRadius" Value="3" />
+      <Setter Property="Foreground" Value="#ffffff" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0.5" />
+      <Setter Property="BorderBrush" Value="#dddddd" />
+    </Style>
+  </Window.Styles>
+
+  <!--<Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>-->
+
+  <Panel>
+    <!--<ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial
+          BackgroundSource="Digger"
+          TintColor="White"
+          TintOpacity="1"
+          MaterialOpacity="1"
+          />
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>-->
+
+    <DockPanel>
+      <!-- Buttons -->
+      <DockPanel Background="#1d1e26">
+        <StackPanel DockPanel.Dock="Top">
+          <TextBlock Margin="10">Modsmith</TextBlock>
+          <Button Margin="10" Width="150" Height="60" VerticalContentAlignment="Center" Content="{Binding CurrentGame}">
+            Warhammer II
+            <Button.Flyout>
+              <Flyout Placement="Bottom">
+                <TextBlock Text="Flyout content" />
+              </Flyout>
+            </Button.Flyout>
+          </Button>
+        </StackPanel>
+        <Panel DockPanel.Dock="Bottom" Width="180" >
+          <StackPanel VerticalAlignment="Bottom" Margin="15, 10" HorizontalAlignment="Left" Spacing="10">
+            <Button Classes="sidebarButton" IsEnabled="{Binding ButtonsEnabled}" Content="Load profile" Command="{Binding LoadProfileCommand}" />
+            <Button Classes="sidebarButton" IsEnabled="{Binding ButtonsEnabled}" Content="Save profile" Command="{Binding SaveProfileCommand}" />
+            <Border Background="White" CornerRadius="4" Height="2" Opacity="0.3" />
+            <Button Classes="sidebarButton" BorderThickness="0" Background="Transparent" IsEnabled="{Binding ButtonsEnabled}" Content="Refresh mod list" Command="{Binding RefreshModListCommand}" />
+            <Button Classes="sidebarButton" BorderThickness="0" Background="#FF4C29" IsEnabled="{Binding ButtonsEnabled}" Content="Launch" Command="{Binding LaunchGameCommand}"  />
+          </StackPanel>
+        </Panel>
+      </DockPanel>
+      <!-- Buttons -->
+      <Grid RowDefinitions="30,*,Auto" Margin="10, 35, 10, 0">
+        <Grid Grid.Row="0" DockPanel.Dock="Top" Margin="0,5">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="213"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="16"/>
+          </Grid.RowDefinitions>
+          <TextBlock
+            FontSize="12"
+            VerticalAlignment="Center" Grid.Column="1" Text="Mod name" />
+          <TextBlock  FontSize="12"
+            VerticalAlignment="Center" Grid.Column="2" Text="Filename" />
+          <TextBlock  FontSize="12"
+            VerticalAlignment="Center" Grid.Column="3" Text="Author" />
+        </Grid>
+        <ListBox BorderThickness="1" CornerRadius="6" Grid.Row="1" DockPanel.Dock="Top" SelectedIndex="{Binding SelectedListBoxModIndex}" Items="{Binding Mods}">
+          <ListBox.Background>
+            <SolidColorBrush Color="White" Opacity="0.01" />
+          </ListBox.Background>
+          <ListBox.BorderBrush>
+            <SolidColorBrush Color="White" Opacity="0.2" />
+          </ListBox.BorderBrush>
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid Margin="0,2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="35" />
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="16"/>
+                </Grid.RowDefinitions>
+                <CheckBox
+                  Grid.Column="0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  CornerRadius="1"
+                  IsThreeState="False"
+                  IsChecked="{Binding Checked, Mode=TwoWay}"
+                />
+                <TextBlock
+                  FontSize="12"
+                  VerticalAlignment="Center" Grid.Column="1" Text="{Binding Name}" />
+                <TextBlock FontSize="12"
+                  VerticalAlignment="Center" Grid.Column="2" Text="{Binding Filename}" />
+                <TextBlock FontSize="12"
+                  VerticalAlignment="Center" Grid.Column="3" Text="{Binding Author}" />
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="2" DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0, 10" Spacing="5">
+          <Button Background="#e7e9eb" Foreground="#89909c" IsEnabled="{Binding !FilteredView}" VerticalContentAlignment="Center" Command="{Binding MoveModUp}">
+            <i:Icon Value="fas fa-chevron-circle-up" />
+          </Button>
+          <Button Background="#e7e9eb" Foreground="#89909c" IsEnabled="{Binding !FilteredView}" VerticalContentAlignment="Center" Command="{Binding MoveModDown}">
+            <i:Icon Value="fas fa-chevron-circle-down" />
+          </Button>
+          <TextBox Text="{Binding ModFilterText}" VerticalContentAlignment="Center" FontSize="12" Height="10" CornerRadius="1" Watermark="Filter mod name" MinWidth="200" />
+        </StackPanel>
+      </Grid>
+    </DockPanel>
+  </Panel>
+
+</Window>

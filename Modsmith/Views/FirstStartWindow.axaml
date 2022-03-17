@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="250"
+        MaxWidth="600" MaxHeight="250" MinWidth="600" MinHeight="250"
+        x:Class="Modsmith.Views.FirstStartWindow"
+        WindowStartupLocation="CenterScreen"
+        x:Name="FirstStartWindow"
+        Title=""
+              Background="Transparent"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True">
+  
+  <Panel>
+    <ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial
+          BackgroundSource="Digger"
+          TintColor="Black"
+          TintOpacity="0.1"
+          MaterialOpacity="0.8"
+          />
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>
+
+    
+    <Panel>
+      <TextBlock Text="{Binding MainText}" Margin="0, 100" HorizontalAlignment="Center" />
+    </Panel>
+           <Panel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="40">
+      <Button 
+        Command="{Binding OnClickCloseCommand}" 
+        CommandParameter="{Binding ElementName=FirstStartWindow}" 
+        DockPanel.Dock="Bottom"
+        CornerRadius="1"
+      >
+        Close
+      </Button>
+    </Panel>
+  </Panel>
+  
+</Window>
